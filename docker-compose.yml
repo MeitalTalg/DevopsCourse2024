@@ -1,0 +1,40 @@
+version: '3.3'
+
+services:
+  drupal:
+      container_name: drupal
+      image: drupal
+      ports:
+        - "80:80"
+      volumes:
+        - drupal_modules:/var/www/html/modules
+        - drupal_profiles:/var/www/html/profiles
+        - drupal_themes:/var/www/html/themes
+        - drupal_sites:/var/www/html/sites
+      restart: always
+      networks:
+        new:
+
+  
+  postgresql:
+      container_name: postgresql
+      image: postgres
+      environment:
+        POSTGRES_PASSWORD: postgres123
+      volumes:
+        - psql_data:/var/lib/postgresql/data
+      networks:
+        - new
+      restart: always
+
+volumes:
+  drupal_modules:
+  drupal_profiles:
+  drupal_themes:
+  drupal_sites:
+  psql_data:
+
+networks:
+  new:
+
+
